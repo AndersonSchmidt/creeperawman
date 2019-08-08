@@ -1,0 +1,10 @@
+<div class="chat d-flex align-items-start flex-column" #chat [scrollTop]="chat.scrollHeight" style="background-color: #343233; border-radius: 5px">
+    <div class="alert p-2" *ngFor="let message of messages" style="background-color: #574b4f; max-width: 98%;">
+      <strong>{{message.user}}</strong>: {{ message.msg}}
+    </div>
+    <div data-spy="scroll" data-offset="0"></div>
+</div>
+
+
+
+

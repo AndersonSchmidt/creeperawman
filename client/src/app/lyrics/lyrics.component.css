@@ -1,0 +1,26 @@
+.lyrics {
+  height: 500px;
+  overflow-y: scroll;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background-color: #574b4f;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #efdab9;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #efdab9;
+}

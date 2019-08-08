@@ -1,0 +1,24 @@
+<div class="container">
+  <br>
+  <div class="row">
+    <div class="col-md-6 mx-auto">
+      <img src="../../assets/images/creeperawman.png" style="width: 100%">
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row text-center">
+    <div class="col-md-4 mx-auto">
+      <br>
+      <br>
+      <form #form="ngForm" (submit)="onSubmit(form)">
+        <div class="form-group">
+            <input style='border: none; color: #efdab9; background-color: #574b4f !important' type="text" id="username" class="form-control bg-dark" name="user" ngModel placeholder="Nickname">
+            <br>
+            <input type="submit" class="btn btn-block" id="submitBtn" value="Go">
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
