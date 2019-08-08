@@ -33,7 +33,7 @@ export class ChatComponent implements OnInit {
       // }
 
       sound = new Howl({
-        src: ['../../assets/sounds/' + message.msg + '.mp3']
+        src: ['../../assets/sounds/' + message.msg.toLocaleLowerCase() + '.mp3']
       });
       sound.play();
 
