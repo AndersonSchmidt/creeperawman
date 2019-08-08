@@ -29,8 +29,17 @@ export class ChatService {
   }
 
   onUserAdded() {
-    const observable = new Observable<string[]>(observer => {
+    const observable = new Observable<number>(observer => {
       this.socket.on('user added', (data) => {
+        observer.next(data);
+      });
+    });
+    return observable;
+  }
+
+  onUserRemoved() {
+    const observable = new Observable<number>(observer => {
+      this.socket.on('user removed', (data) => {
         observer.next(data);
       });
     });

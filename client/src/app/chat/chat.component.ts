@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Howl } from 'howler';
 import { ChatService } from '../chat.service';
-import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-chat',
@@ -38,9 +37,6 @@ export class ChatComponent implements OnInit {
       });
       sound.play();
 
-    });
-    this.chatService.onUserAdded().subscribe(users => {
-      this.users = users;
     });
   }
 

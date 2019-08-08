@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { ChatFormComponent } from './chat-form/chat-form.component';
 import { RootComponent } from './root/root.component';
 import { LyricsComponent } from './lyrics/lyrics.component';
+import { OnlineUsersComponent } from './online-users/online-users.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { LyricsComponent } from './lyrics/lyrics.component';
     LoginComponent,
     ChatFormComponent,
     RootComponent,
-    LyricsComponent
+    LyricsComponent,
+    OnlineUsersComponent
   ],
   imports: [
     BrowserModule,

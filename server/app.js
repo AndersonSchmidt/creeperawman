@@ -6,7 +6,6 @@ app.use(express.static('public'));
 let server = require('http').createServer(app);
 let io = require('socket.io').listen(server);
 
-users = [];
 connections = [];
 
 app.get('/', (req, res) => {
@@ -19,9 +18,8 @@ io.sockets.on('connection', (socket) => {
 
     // Disconnect
     socket.on('disconnect', () => {
-        users.splice(users.indexOf(socket.username), 1);
-        updateUsernames();
         connections.splice(connections.indexOf(socket), 1);
+        io.sockets.emit('user removed', connections.length);
         console.log('Disconnected: %s sockets connected', connections.length);
     });
 
@@ -33,13 +31,8 @@ io.sockets.on('connection', (socket) => {
     // New User
     socket.on('add user', (data) => {
         socket.username = data;
-        users.push(socket.username);
-        updateUsernames();
+        io.sockets.emit('user added', connections.length);
     });
-
-    function updateUsernames() {
-        io.sockets.emit('user added', users);
-    }
 
 });
 
