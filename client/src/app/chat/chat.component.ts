@@ -16,12 +16,28 @@ export class ChatComponent implements OnInit {
   constructor(private chatService: ChatService) { }
 
   ngOnInit() {
+    let sound: Howl;
     this.chatService.onMsgAdded().subscribe(message => {
       this.messages.push(message);
-      // const sound = new Howl({
-      //   src: ['http://localhost:3000/sounds/OOF.mp4']
-      // });
-      // sound.play();
+      if (sound) {
+        sound.stop();
+      }
+      // let path = '';
+
+      // switch (message.msg) {
+      //   case 'Creeper':
+      //     path = 'Creeper';
+      //     break;
+      //   case 'Aw man':
+      //     path = 'Aw man';
+      //     break;
+      // }
+
+      sound = new Howl({
+        src: ['../../assets/sounds/' + message.msg + '.mp3']
+      });
+      sound.play();
+
     });
     this.chatService.onUserAdded().subscribe(users => {
       this.users = users;

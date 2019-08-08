@@ -20,7 +20,7 @@ export class ChatService {
   }
 
   onMsgAdded() {
-    const observable = new Observable<{user: string, message: string}>(observer => {
+    const observable = new Observable<{user: string, msg: string}>(observer => {
       this.socket.on('msg added', (data) => {
         observer.next(data);
       });
