@@ -9,7 +9,7 @@ let io = require('socket.io').listen(server);
 connections = [];
 
 app.get('/', (req, res) => {
-    
+    res.send('it works');
 });
 
 io.sockets.on('connection', (socket) => {
@@ -36,6 +36,6 @@ io.sockets.on('connection', (socket) => {
 
 });
 
-server.listen(3000, () => {
+server.listen(8081, () => {
     console.log('Server Running');
 });

@@ -37,6 +37,14 @@ export class ChatComponent implements OnInit {
       });
       sound.play();
 
+
+      // this.chatService.textToSpeech(message.msg).subscribe(sound64 => {
+      //   sound = new Howl({
+      //     src: ['data:audio/x-mp3;base64,' + sound64.audioContent]
+      //   });
+      //   sound.play();
+      // });
+
     });
   }
 
