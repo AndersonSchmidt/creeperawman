@@ -10,25 +10,24 @@ import { ChatService } from '../chat.service';
 export class ChatComponent implements OnInit {
 
   messages = [];
-  users = [];
   @Input() user: string;
 
   constructor(private chatService: ChatService) { }
 
   ngOnInit() {
     let sound: Howl;
+
     this.chatService.onMsgAdded().subscribe(message => {
       if (message.user !== this.user) {
         this.messages.push(message);
+
         if (sound) {
           sound.stop();
         }
-
         sound = new Howl({
           src: ['../../assets/sounds/' + message.msg.toLowerCase() + '.mp3']
         });
         sound.play();
-
 
         // this.chatService.textToSpeech(message.msg).subscribe(sound64 => {
         //   sound = new Howl({
@@ -37,7 +36,6 @@ export class ChatComponent implements OnInit {
         //   sound.play();
         // });
       }
-
     });
 
     this.chatService.onLocalMsgAdded.subscribe((msg) => {
@@ -50,12 +48,10 @@ export class ChatComponent implements OnInit {
       if (sound) {
         sound.stop();
       }
-
       sound = new Howl({
         src: ['../../assets/sounds/' + msg.toLowerCase() + '.mp3']
       });
       sound.play();
     });
   }
-
 }
