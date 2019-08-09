@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ChatService } from '../chat.service';
 import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +16,11 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
+    const navigationExtras: NavigationExtras = {
+      queryParams: {user: form.value.user},
+      skipLocationChange: true
+    };
     this.chatService.addUser(form.value.user);
-    this.router.navigate(['root'], {skipLocationChange: true});
+    this.router.navigate(['root'], navigationExtras);
   }
 }
