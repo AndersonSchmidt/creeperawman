@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import io from 'socket.io-client';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChatService {
+
+  onLocalMsgAdded = new Subject<string>();
 
   private socket = io('creeperawman.us-east-2.elasticbeanstalk.com');
 
@@ -63,7 +65,10 @@ export class ChatService {
       }
     };
 
-    return this.http.post<{audioContent: string}>('https://texttospeech.googleapis.com/v1beta1/text:synthesize?key=AIzaSyDMOaGTUti--OxgCdhjwNGvQ2o3SVUeGmI', reqBody);
+    return this.http.post<{audioContent: string}>(
+      'https://texttospeech.googleapis.com/v1beta1/text:synthesize?key=AIzaSyDMOaGTUti--OxgCdhjwNGvQ2o3SVUeGmI',
+      reqBody
+    );
   }
 
 }

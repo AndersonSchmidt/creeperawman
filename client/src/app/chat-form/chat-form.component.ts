@@ -16,6 +16,7 @@ export class ChatFormComponent implements OnInit {
 
   onSubmitMsg(form: NgForm) {
     if (form.value.message) {
+      this.chatService.onLocalMsgAdded.next(form.value.message);
       this.chatService.addMsg(form.value.message);
       form.reset();
     }
