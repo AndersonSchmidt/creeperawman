@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Howl } from 'howler';
 import { ChatService } from '../chat.service';
+import { HowlerService } from '../howler.service';
 
 @Component({
   selector: 'app-chat',
@@ -12,22 +12,14 @@ export class ChatComponent implements OnInit {
   messages = [];
   @Input() user: string;
 
-  constructor(private chatService: ChatService) { }
+  constructor(private chatService: ChatService, private howlerService: HowlerService) { }
 
   ngOnInit() {
-    let sound: Howl;
-
     this.chatService.onMsgAdded().subscribe(message => {
       if (message.user !== this.user) {
         this.messages.push(message);
 
-        if (sound) {
-          sound.stop();
-        }
-        sound = new Howl({
-          src: ['../../assets/sounds/' + message.msg.toLowerCase() + '.mp3']
-        });
-        sound.play();
+        this.howlerService.play(message.msg);
 
         // this.chatService.textToSpeech(message.msg).subscribe(sound64 => {
         //   sound = new Howl({
@@ -45,13 +37,7 @@ export class ChatComponent implements OnInit {
       };
       this.messages.push(message);
 
-      if (sound) {
-        sound.stop();
-      }
-      sound = new Howl({
-        src: ['../../assets/sounds/' + msg.toLowerCase() + '.mp3']
-      });
-      sound.play();
+      this.howlerService.play(msg);
     });
   }
 }
