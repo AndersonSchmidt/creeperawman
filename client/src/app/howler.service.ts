@@ -60,7 +60,6 @@ export class HowlerService {
       }
     });
     if (isToSpeech && text) {
-      console.log(text);
       const reqBody = {
         audioConfig: {
           audioEncoding: 'LINEAR16',
