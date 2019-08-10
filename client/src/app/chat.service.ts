@@ -10,7 +10,7 @@ export class ChatService {
 
   onLocalMsgAdded = new Subject<{msg: string, sound64: string}>();
 
-  private socket = io('http://creeperawman.us-east-2.elasticbeanstalk.com/');
+  private socket = io('http://localhost:8081');
 
   constructor(private http: HttpClient) { }
 
