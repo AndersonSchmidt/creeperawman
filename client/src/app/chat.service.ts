@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import io from 'socket.io-client';
 import { Observable, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class ChatService {
 
   onLocalMsgAdded = new Subject<{msg: string, sound64: string}>();
 
-  private socket = io('http://localhost:8081');
+  private socket = io(environment.serverUrl);
 
   constructor(private http: HttpClient) { }
 
