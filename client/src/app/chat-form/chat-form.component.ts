@@ -12,6 +12,7 @@ import { Howl } from 'howler';
 export class ChatFormComponent implements OnInit {
   sound64 = '';
   subscription;
+  chatLoading: boolean;
 
   constructor(private chatService: ChatService, private howlerService: HowlerService) { }
 
@@ -20,20 +21,20 @@ export class ChatFormComponent implements OnInit {
 
   onSubmitMsg(form: NgForm) {
     if (form.value.message) {
-      this.chatService.onLocalMsgAdded.next({msg: form.value.message, sound64: this.sound64});
-      this.chatService.addMsg(form.value.message, this.sound64);
-      form.reset();
+      this.chatLoading = true;
+      if (this.subscription) {
+        this.subscription.unsubscribe();
+        this.sound64 = '';
+      }
+      this.subscription = this.howlerService.textToSpeech(form.value.message).subscribe(sound64 => {
+        if (sound64) {
+          this.sound64 = sound64.audioContent;
+        }
+        this.chatService.onLocalMsgAdded.next({msg: form.value.message, sound64: this.sound64});
+        this.chatService.addMsg(form.value.message, this.sound64);
+        form.reset();
+        this.chatLoading = false;
+      });
     }
-  }
-
-  onKeyUp(message: string) {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-      this.sound64 = '';
-    }
-    this.subscription = this.howlerService.textToSpeech(message).subscribe(sound64 => {
-      this.sound64 = sound64.audioContent;
-      console.log(this.sound64);
-    });
   }
 }

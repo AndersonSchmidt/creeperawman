@@ -81,7 +81,9 @@ export class HowlerService {
         reqBody
       );
     } else {
-      return new Observable<{audioContent: ''}>();
+      return new Observable<{audioContent: string}>(observer => {
+        observer.next();
+      });
     }
   }
 }
