@@ -25,3 +25,7 @@
 <div class="alert alert-danger" style="width: fit-content; margin: auto;" role="alert" *ngIf="!validUser">
   This nickname is already being used!
 </div>
+<br>
+<div class="d-flex justify-content-center" *ngIf="loginLoading">
+    <div class="spinner-border" style="color: #efdab9" role="status"></div>
+</div>

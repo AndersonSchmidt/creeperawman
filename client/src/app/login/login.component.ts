@@ -11,6 +11,7 @@ import { Router, NavigationExtras } from '@angular/router';
 export class LoginComponent implements OnInit {
 
   validUser = true;
+  loginLoading = false;
 
   constructor(private chatService: ChatService, private router: Router) { }
 
@@ -18,6 +19,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
+    this.loginLoading = true;
     this.chatService.addUser(form.value.user).subscribe(({username, valid}) => {
       if (valid) {
         const navigationExtras: NavigationExtras = {
@@ -25,9 +27,11 @@ export class LoginComponent implements OnInit {
           skipLocationChange: true
         };
         this.chatService.addUser(form.value.user);
+        this.loginLoading = false;
         this.router.navigate(['root'], navigationExtras);
       } else {
         this.validUser = false;
+        this.loginLoading = false;
       }
     });
   }
