@@ -25,7 +25,7 @@ io.sockets.on('connection', (socket) => {
 
     // Send Message
     socket.on('add msg', (data) => {
-        io.sockets.emit('msg added', {msg: data, user: socket.username});
+        io.sockets.emit('msg added', {msg: data.msg, sound64: data.sound64, user: socket.username});
     });
 
     // New User

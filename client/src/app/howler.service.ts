@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Howl } from 'howler';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +22,7 @@ export class HowlerService {
     'until the sun comes up in the morn', 'cause, baby, tonight'
   ];
 
-  constructor() {
+  constructor(private http: HttpClient) {
     for (let i = 0; i < this.lyrics.length; i++) {
       this.sounds[i] = new Howl({
         src: ['../../assets/sounds/' + this.lyrics[i] + '.mp3']
@@ -28,18 +30,58 @@ export class HowlerService {
     }
   }
 
-  play(msg: string) {
+  play(msg: string, sound64: string) {
     if (this.sound) {
       this.sound.stop();
     }
 
-    this.lyrics.forEach(verse => {
-      if (msg.toLowerCase() === verse) {
-        this.sound = new Howl({
-          src: ['../../assets/sounds/' + msg.toLowerCase() + '.mp3']
+    if (sound64) {
+      this.sound = new Howl({
+          src: ['data:audio/x-mp3;base64,' + sound64]
         });
-        this.sound.play();
+      this.sound.play();
+    } else {
+      this.lyrics.forEach(verse => {
+        if (msg.toLowerCase() === verse) {
+          this.sound = new Howl({
+            src: ['../../assets/sounds/' + msg.toLowerCase() + '.mp3']
+          });
+          this.sound.play();
+        }
+      });
+    }
+  }
+
+  textToSpeech(text: string) {
+    let isToSpeech = true;
+    this.lyrics.forEach(verse => {
+      if (text.toLowerCase() === verse) {
+        isToSpeech = false;
       }
     });
+    if (isToSpeech && text) {
+      console.log(text);
+      const reqBody = {
+        audioConfig: {
+          audioEncoding: 'LINEAR16',
+          pitch: 0,
+          speakingRate: 1
+        },
+        input: {
+          text
+        },
+        voice: {
+          languageCode: 'en-US',
+          name: 'en-US-Standard-D'
+        }
+      };
+
+      return this.http.post<{audioContent: string}>(
+        'https://texttospeech.googleapis.com/v1beta1/text:synthesize?key=AIzaSyDMOaGTUti--OxgCdhjwNGvQ2o3SVUeGmI',
+        reqBody
+      );
+    } else {
+      return new Observable<{audioContent: ''}>();
+    }
   }
 }

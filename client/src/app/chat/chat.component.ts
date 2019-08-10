@@ -19,25 +19,19 @@ export class ChatComponent implements OnInit {
       if (message.user !== this.user) {
         this.messages.push(message);
 
-        this.howlerService.play(message.msg);
+        this.howlerService.play(message.msg, message.sound64);
 
-        // this.chatService.textToSpeech(message.msg).subscribe(sound64 => {
-        //   sound = new Howl({
-        //     src: ['data:audio/x-mp3;base64,' + sound64.audioContent]
-        //   });
-        //   sound.play();
-        // });
       }
     });
 
-    this.chatService.onLocalMsgAdded.subscribe((msg) => {
+    this.chatService.onLocalMsgAdded.subscribe(({msg, sound64}) => {
       const message = {
         user: this.user,
         msg
       };
       this.messages.push(message);
 
-      this.howlerService.play(msg);
+      this.howlerService.play(msg, sound64);
     });
   }
 }

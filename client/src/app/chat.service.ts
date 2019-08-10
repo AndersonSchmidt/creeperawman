@@ -8,9 +8,9 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ChatService {
 
-  onLocalMsgAdded = new Subject<string>();
+  onLocalMsgAdded = new Subject<{msg: string, sound64: string}>();
 
-  private socket = io('creeperawman.us-east-2.elasticbeanstalk.com');
+  private socket = io('http://localhost:8081');
 
   constructor(private http: HttpClient) { }
 
@@ -18,12 +18,12 @@ export class ChatService {
     this.socket.emit('add user', data);
   }
 
-  addMsg(data) {
-    this.socket.emit('add msg', data);
+  addMsg(msg, sound64) {
+    this.socket.emit('add msg', {msg, sound64});
   }
 
   onMsgAdded() {
-    const observable = new Observable<{user: string, msg: string}>(observer => {
+    const observable = new Observable<{user: string, msg: string, sound64: string}>(observer => {
       this.socket.on('msg added', (data) => {
         observer.next(data);
       });
@@ -48,27 +48,4 @@ export class ChatService {
     });
     return observable;
   }
-
-  textToSpeech(text: string) {
-    const reqBody = {
-      audioConfig: {
-        audioEncoding: 'LINEAR16',
-        pitch: 0,
-        speakingRate: 1
-      },
-      input: {
-        text: text
-      },
-      voice: {
-        languageCode: 'en-US',
-        name: 'en-US-Standard-D'
-      }
-    };
-
-    return this.http.post<{audioContent: string}>(
-      'https://texttospeech.googleapis.com/v1beta1/text:synthesize?key=AIzaSyDMOaGTUti--OxgCdhjwNGvQ2o3SVUeGmI',
-      reqBody
-    );
-  }
-
 }
