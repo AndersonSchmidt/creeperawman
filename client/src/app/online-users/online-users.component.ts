@@ -12,12 +12,8 @@ export class OnlineUsersComponent implements OnInit {
   constructor(private chatService: ChatService) { }
 
   ngOnInit() {
-    this.chatService.onUserAdded().subscribe(users => {
-      this.users = users;
-    });
-
-    this.chatService.onUserRemoved().subscribe(users => {
-      this.users = users;
+    this.chatService.onUsersUpdated().subscribe(users => {
+      this.users = users.length;
     });
   }
 

@@ -10,17 +10,25 @@ import { Router, NavigationExtras } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
+  validUser = true;
+
   constructor(private chatService: ChatService, private router: Router) { }
 
   ngOnInit() {
   }
 
   onSubmit(form: NgForm) {
-    const navigationExtras: NavigationExtras = {
-      queryParams: {user: form.value.user},
-      skipLocationChange: true
-    };
-    this.chatService.addUser(form.value.user);
-    this.router.navigate(['root'], navigationExtras);
+    this.chatService.addUser(form.value.user).subscribe(({username, valid}) => {
+      if (valid) {
+        const navigationExtras: NavigationExtras = {
+          queryParams: {user: form.value.user},
+          skipLocationChange: true
+        };
+        this.chatService.addUser(form.value.user);
+        this.router.navigate(['root'], navigationExtras);
+      } else {
+        this.validUser = false;
+      }
+    });
   }
 }

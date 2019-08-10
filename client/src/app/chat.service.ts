@@ -10,12 +10,18 @@ export class ChatService {
 
   onLocalMsgAdded = new Subject<{msg: string, sound64: string}>();
 
-  private socket = io('http://localhost:8081');
+  private socket = io('http://192.168.100.11:8081');
 
   constructor(private http: HttpClient) { }
 
-  addUser(data) {
-    this.socket.emit('add user', data);
+  addUser(username) {
+    const observable = new Observable<{username: string, valid: boolean}>(observer => {
+      this.socket.emit('add user', username, (valid) => {
+        observer.next({username, valid});
+      });
+    });
+    return observable;
+
   }
 
   addMsg(msg, sound64) {
@@ -31,19 +37,10 @@ export class ChatService {
     return observable;
   }
 
-  onUserAdded() {
-    const observable = new Observable<number>(observer => {
-      this.socket.on('user added', (data) => {
-        observer.next(data);
-      });
-    });
-    return observable;
-  }
-
-  onUserRemoved() {
-    const observable = new Observable<number>(observer => {
-      this.socket.on('user removed', (data) => {
-        observer.next(data);
+  onUsersUpdated() {
+    const observable = new Observable<[]>(observer => {
+      this.socket.on('users updated', (users) => {
+        observer.next(users);
       });
     });
     return observable;
