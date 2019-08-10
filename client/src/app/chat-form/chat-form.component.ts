@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ChatService } from '../chat.service';
 import { HowlerService } from '../howler.service';
-import { Howl } from 'howler';
 
 @Component({
   selector: 'app-chat-form',
