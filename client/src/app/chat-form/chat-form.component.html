@@ -1,5 +1,5 @@
 <form #form="ngForm" (submit)="onSubmitMsg(form)" autocomplete="off">
-  <input type="text" style="background-color: #574b4f !important; color: #efdab9; border: none; width: 93%; display: inline;" class="form-control" name="message" ngModel maxlength="100" placeholder="Start singing...">
+  <input type="text" style="background-color: #574b4f !important; color: #efdab9; border: none; width: 93%; display: inline;" class="form-control" name="message" ngModel maxlength="130" placeholder="Start singing...">
   <div class="spinner-border spinner-border-sm" style="margin-left: 7px; color: #efdab9" *ngIf="chatLoading" role="status"></div>
 </form>
 
