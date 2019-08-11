@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ChatService } from '../chat.service';
 import { HowlerService } from '../howler.service';
+import { TouchSequence } from 'selenium-webdriver';
 
 @Component({
   selector: 'app-chat-form',
@@ -12,6 +13,8 @@ export class ChatFormComponent implements OnInit {
   sound64 = '';
   subscription;
   chatLoading: boolean;
+
+  @ViewChild('message', {static: false}) messageField: ElementRef;
 
   constructor(private chatService: ChatService, private howlerService: HowlerService) { }
 
@@ -33,6 +36,9 @@ export class ChatFormComponent implements OnInit {
         this.chatService.addMsg(form.value.message, this.sound64);
         form.reset();
         this.chatLoading = false;
+        setTimeout(() => {
+          this.messageField.nativeElement.focus();
+        }, 1);
       });
     }
   }
