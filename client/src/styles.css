@@ -8,3 +8,9 @@ body {
   color: #efdab9 !important;
   opacity: 0.7 !important;
 }
+
+.form-control:focus {
+  border-color: #efdab9 !important;
+  box-shadow: 0 0 0 3px #efdab9 !important;
+  opacity: 0.9 !important;
+}
