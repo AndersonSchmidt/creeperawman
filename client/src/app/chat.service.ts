@@ -22,7 +22,6 @@ export class ChatService {
       });
     });
     return observable;
-
   }
 
   addMsg(msg, sound64) {
@@ -42,6 +41,15 @@ export class ChatService {
     const observable = new Observable<[]>(observer => {
       this.socket.on('users updated', (users) => {
         observer.next(users);
+      });
+    });
+    return observable;
+  }
+
+  onDisconnect() {
+    const observable = new Observable(observer => {
+      this.socket.on('disconnect', () => {
+        observer.next();
       });
     });
     return observable;
