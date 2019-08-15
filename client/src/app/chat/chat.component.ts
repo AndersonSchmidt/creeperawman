@@ -20,10 +20,6 @@ export class ChatComponent implements OnInit {
         this.messages.push(message);
 
         this.howlerService.play(message.msg, message.sound64);
-
-        if (this.messages.length >= 150) {
-          this.messages.shift();
-        }
       }
     });
 
@@ -35,9 +31,6 @@ export class ChatComponent implements OnInit {
       this.messages.push(message);
 
       this.howlerService.play(msg, sound64);
-      if (this.messages.length >= 150) {
-        this.messages.shift();
-      }
     });
   }
 }
