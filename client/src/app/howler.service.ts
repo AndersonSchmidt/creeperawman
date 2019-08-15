@@ -55,9 +55,9 @@ export class HowlerService {
       this.sound.play();
     } else {
       this.lyrics.forEach(verse => {
-        if (msg.toLowerCase() === verse) {
+        if (msg.trim().toLowerCase() === verse) {
           this.sound = new Howl({
-            src: ['../../assets/sounds/' + msg.toLowerCase() + '.mp3']
+            src: ['../../assets/sounds/' + msg.trim().toLowerCase() + '.mp3']
           });
           this.sound.play();
         }
@@ -68,7 +68,7 @@ export class HowlerService {
   textToSpeech(text: string) {
     let isToSpeech = true;
     this.lyrics.forEach(verse => {
-      if (text.toLowerCase() === verse) {
+      if (text.trim().toLowerCase() === verse) {
         isToSpeech = false;
       }
     });
