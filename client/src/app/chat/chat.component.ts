@@ -1,15 +1,17 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { ChatService } from '../chat.service';
 import { HowlerService } from '../howler.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.css']
 })
-export class ChatComponent implements OnInit {
+export class ChatComponent implements OnInit, OnDestroy {
 
   messages = [];
+  onLocalMsgAddedSub: Subscription;
   @Input() user: string;
 
   constructor(private chatService: ChatService, private howlerService: HowlerService) { }
@@ -23,7 +25,7 @@ export class ChatComponent implements OnInit {
       }
     });
 
-    this.chatService.onLocalMsgAdded.subscribe(({msg, sound64}) => {
+    this.onLocalMsgAddedSub = this.chatService.onLocalMsgAdded.subscribe(({msg, sound64}) => {
       const message = {
         user: this.user,
         msg
@@ -32,5 +34,9 @@ export class ChatComponent implements OnInit {
 
       this.howlerService.play(msg, sound64);
     });
+  }
+
+  ngOnDestroy() {
+    this.onLocalMsgAddedSub.unsubscribe();
   }
 }
