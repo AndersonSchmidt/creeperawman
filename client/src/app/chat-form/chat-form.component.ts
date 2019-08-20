@@ -1,17 +1,18 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ChatService } from '../chat.service';
 import { HowlerService } from '../howler.service';
 import { TouchSequence } from 'selenium-webdriver';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-chat-form',
   templateUrl: './chat-form.component.html',
   styleUrls: ['./chat-form.component.css']
 })
-export class ChatFormComponent implements OnInit {
+export class ChatFormComponent implements OnInit, OnDestroy {
   sound64 = '';
-  subscription;
+  subscription: Subscription;
   chatLoading: boolean;
 
   @ViewChild('message', {static: false}) messageField: ElementRef;
@@ -41,5 +42,9 @@ export class ChatFormComponent implements OnInit {
         }, 1);
       });
     }
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }
