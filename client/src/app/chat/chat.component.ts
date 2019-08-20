@@ -11,32 +11,36 @@ import { Subscription } from 'rxjs';
 export class ChatComponent implements OnInit, OnDestroy {
 
   messages = [];
-  onLocalMsgAddedSub: Subscription;
+  private subscriptions = new Subscription();
   @Input() user: string;
 
   constructor(private chatService: ChatService, private howlerService: HowlerService) { }
 
   ngOnInit() {
-    this.chatService.onMsgAdded().subscribe(message => {
-      if (message.user !== this.user) {
+    this.subscriptions.add(
+      this.chatService.onMsgAdded().subscribe(message => {
+        if (message.user !== this.user) {
+          this.messages.push(message);
+
+          this.howlerService.play(message.msg, message.sound64);
+        }
+      })
+    );
+
+    this.subscriptions.add(
+      this.chatService.onLocalMsgAdded.subscribe(({msg, sound64}) => {
+        const message = {
+          user: this.user,
+          msg
+        };
         this.messages.push(message);
 
-        this.howlerService.play(message.msg, message.sound64);
-      }
-    });
-
-    this.onLocalMsgAddedSub = this.chatService.onLocalMsgAdded.subscribe(({msg, sound64}) => {
-      const message = {
-        user: this.user,
-        msg
-      };
-      this.messages.push(message);
-
-      this.howlerService.play(msg, sound64);
-    });
+        this.howlerService.play(msg, sound64);
+      })
+    );
   }
 
   ngOnDestroy() {
-    this.onLocalMsgAddedSub.unsubscribe();
+    this.subscriptions.unsubscribe();
   }
 }
