@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/co
 import { NgForm } from '@angular/forms';
 import { ChatService } from '../chat.service';
 import { HowlerService } from '../howler.service';
-import { TouchSequence } from 'selenium-webdriver';
 import { Subscription } from 'rxjs';
 
 @Component({
