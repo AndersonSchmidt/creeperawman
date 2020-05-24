@@ -1,5 +1,5 @@
 # creeperawman
-You can check the meme that inspirated this project here: youtube.com/watch?v=90sqgexVelc
+You can check the meme that inspirated this project here: https://www.youtube.com/watch?v=90sqgexVelc
 You can see an example of how the creeperawman project works here: youtu.be/_x9m3ttlj_M
 
 Made with Angular, Node.js, Express, howler.js, Bootstrap 4 and Socket.IO.
