@@ -7,4 +7,4 @@ Made with Angular, Node.js, Express, howler.js, Bootstrap 4 and Socket.IO. Node 
 
 <img src="https://lh3.googleusercontent.com/ufaPtq1tL7Hl026PzR3FtX3GyJRBK_2LueI9MyLwaT196MoMcJQJbf9u81f37yMmGt3UBC_HdSLFtQERKidlqDUuBhR-WpFZ0LJ1jMe43gEks0ZefQqtAE8WcgdWT9AOKYgQpfTFTQ=w1170-h657-no"></img>
 
-<img src="https://lh5.googleusercontent.com/aKn57x1S26iQlj5wiejEHFZpNdCL2SKpcMyqRRp9TtZJ1PrFgazD37mUh5k_M2dg7cYtSih9f7-L0Q=w1366-h657-rw"></img>
+<img src="https://lh6.googleusercontent.com/zCu3pNLPRf2NPe5i0w5t7d6X_jyBJi6aq6aWQl4zuRbhYzDhi05pX2TPFA4zXPIVX5xrfNQGEG-M2w=w1366-h657-rw"></img>
